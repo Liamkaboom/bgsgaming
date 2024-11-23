@@ -47,7 +47,7 @@ body {
 
 /* Hero Section */
 .hero {
-    background-image: url('header.png'); /* Replace with your image URL */
+    background-image: url('header.png'); 
     background-size: cover;
     background-position: center;
     color: #fff;

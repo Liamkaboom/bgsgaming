@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="BGS.png">
+    <title>BGS Gaming</title>
+    <style>
+        /* INLINE CSS */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #000;
+            color: white;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            margin: 0 10px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Announcement styling */
+        .announcement {
+            background-color: #00ff00;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+        }
+
+        /* Main content section styling */
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #serverStatus {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            margin: 20px 0;
+        }
+
+        h1 {
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .status {
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .online {
+            color: #28a745;
+            background-color: #d4edda;
+        }
+
+        .offline {
+            color: #dc3545;
+            background-color: #f8d7da;
+        }
+
+        .extra-content {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #555555;
+        }
+    </style>
+</head>
+<body>
+    <div class="announcement">New website update coming soon!</div>
+    <div class="navbar">
+        <div class="logo">BGS</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="mcserver.html">Minecraft Server</a>
+            <a href="whoarewe.html">Who are we?</a>
+            <a href="#">Other Platforms</a>
+            <a href="#">BGS - The Official School Website</a>
+            <a href="#">Programming Club</a>
+            <a href="#">Acknowledgements</a>
+        </nav>
+    </div>
+
+    <main>
+        <div id="serverStatus">
+            <h1>Minecraft Server Status</h1>
+            <div id="statusContainer"></div>
+        </div>
+        <div class="extra-content">
+            <p>How do I connect, you may ask? Well, it's simple. You can connect on both Java and Bedrock.
+
+                For Java, use the IP: audacious7.com.
+
+               For Bedrock, use the IP: audacious7.com, and the port: 26009.
+
+               </p>
+        </div>
+    </main>
+
+    <script>
+        // Function to fetch Minecraft server status
+        function getServerStatus() {
+            var serverAddress = "185.36.205.4";
+            var serverPort = "26009";
+
+            fetch('https://api.mcsrvstat.us/2/' + serverAddress + ':' + serverPort)
+                .then(response => response.json())
+                .then(data => {
+                    var statusContainer = document.getElementById("statusContainer");
+                    if (data.online) {
+                        statusContainer.innerHTML = "<p class='status online'>Online</p>" +
+                            "<p>Online Players: " + data.players.online + "</p>" +
+                            "<p>Server Version: " + data.version + "</p>";
+                    } else {
+                        statusContainer.innerHTML = "<p class='status offline'>Offline</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching server status:', error);
+                    var statusContainer = document.getElementById("statusContainer");
+                    statusContainer.innerHTML = "<p class='status offline'>Error: Unable to fetch server status</p>";
+                });
+        }
+
+        // Call getServerStatus function when the page loads
+        getServerStatus();
+    </script>
+</body>
+</html>
+
