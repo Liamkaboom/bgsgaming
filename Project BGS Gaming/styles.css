@@ -98,6 +98,14 @@ body {
     line-height: 1.5;
 }
 
-.footer {
+footer {
     background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    height: 250px; 
+}
+
+p5{
+    color:white;
 }
